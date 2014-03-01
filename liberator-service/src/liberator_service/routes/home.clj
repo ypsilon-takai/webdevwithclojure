@@ -19,7 +19,7 @@
     (clojure.java.io/input-stream (io/get-resource "/home.html")))
   :last-modified
   (fn [{{{resource :resource} :route-params} :request}]
-    (.lastMedified (file (str (io/resource-path "/home.html"))))))
+    (.lastModified (file (str (io/resource-path)  "/home.html")))))
 
 (def users (atom ["Yosi" "Toko"]))
 

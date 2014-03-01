@@ -14,7 +14,9 @@
        $.get("/users", renderUsers);
      }
      function addUser() {
-       $.post("/add-user", {user: $('#name').val()}, renderUsers);
+       var nm = $('#name').val();
+       $('#name').val('');
+       $.post("/add-user", {user: nm}, renderUsers);
      }
      $(function() {getUsers();});
     </script>
