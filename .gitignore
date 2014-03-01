@@ -11,3 +11,4 @@ pom.xml
 .lein-env
 db.sq3
 */.nrepl-port
+/liberator-service/.nrepl-port
