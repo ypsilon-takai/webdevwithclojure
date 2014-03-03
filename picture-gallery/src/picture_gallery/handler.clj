@@ -4,20 +4,24 @@
             [noir.util.middleware :as middelware]
             [picture-gallery.routes.home :refer [home-routes]]
             [picture-gallery.routes.auth :refer [auth-routes]]
+            [picture-gallery.routes.upload :refer [upload-routes]]
             ))
 
 (defn init []
-  (println "picture_gallery is starting"))
+  (println "picture-gallery is starting"))
 
 (defn destroy []
-  (println "picture_gallery is shutting down"))
+  (println "picture-gallery is shutting down"))
 
 (defroutes app-routes
   (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
-  (-> (noir.util.middleware/app-handler [home-routes app-routes])))
+  (-> (noir.util.middleware/app-handler
        [auth-routes
+        home-routes
+        upload-routes
+        app-routes])))
 
 

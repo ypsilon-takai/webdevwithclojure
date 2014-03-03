@@ -1,5 +1,5 @@
 (ns picture-gallery.repl    
-  (:use picture_gallery.handler
+  (:use picture-gallery.handler
         ring.server.standalone
         [ring.middleware file-info file]))
 
