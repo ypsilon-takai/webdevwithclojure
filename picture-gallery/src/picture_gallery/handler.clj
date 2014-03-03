@@ -2,7 +2,8 @@
   (:require [compojure.route :as route]
             [compojure.core :refer [defroutes]]
             [noir.util.middleware :as middelware]
-            [picture_gallery.routes.home :refer [home-routes]]
+            [picture-gallery.routes.home :refer [home-routes]]
+            [picture-gallery.routes.auth :refer [auth-routes]]
             ))
 
 (defn init []
@@ -17,5 +18,6 @@
 
 (def app
   (-> (noir.util.middleware/app-handler [home-routes app-routes])))
+       [auth-routes
 
 
