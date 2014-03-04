@@ -22,6 +22,9 @@
        [auth-routes
         home-routes
         upload-routes
-        app-routes])))
+        app-routes
+        :access-rules [user-page]])))
+
+
 
 
