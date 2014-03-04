@@ -18,13 +18,14 @@
              [:pass "entered passwords do not match"])
   (not (vali/errors? :id :pass :pass1)))
 
-(defn errer-item [[error]]
+(defn error-item [[error]]
   [:div.error error])
 
 (defn control [id label field]
   (list
    (vali/on-error id error-item)
-   label field
+   label
+   field
    [:br]))
 
 (defn registration-page [& [id]]

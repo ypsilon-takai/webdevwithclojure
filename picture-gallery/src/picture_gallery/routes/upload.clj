@@ -28,11 +28,11 @@
             (file-upload :file)
             (submit-button "upload"))))
 
-(defn serve-file [file-name]
-  (file-response (str (gallery-path) File/separator file-name)))
-
 (defn gallery-path []
   "galleries")
+
+(defn serve-file [file-name]
+  (file-response (str (gallery-path) File/separator file-name)))
 
 (def thumb-size 150)
 (def thumb-prefix "thumb_")

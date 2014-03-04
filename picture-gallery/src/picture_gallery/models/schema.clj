@@ -3,7 +3,7 @@
             [clojure.java.jdbc :as sql]))
 
 (defn create-user-table []
-  (sql/with-connection db
+  (sql/with-connection *db*
     (sql/create-table
      :users
      [:id "varchar(32) PRIMARY KEY"]

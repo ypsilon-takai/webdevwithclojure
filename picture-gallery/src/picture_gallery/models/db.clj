@@ -1,14 +1,14 @@
 (ns picture-gallery.models.db
   (:require [clojure.java.jdbc :as sql]))
 
-(defmacro with-db [f & body]
-  `(sql/with-connection ~*db* (~f ~@body)))
-
 (def ^:dynamic *db*
   {:subprotocol "postgresql"
    :subname "//localhost/gallery"
    :user "admin"
    :password "admin"})
+
+(defmacro with-db [f & body]
+  `(sql/with-connection ~*db* (~f ~@body)))
 
 (defn create-user [user]
   (with-db
