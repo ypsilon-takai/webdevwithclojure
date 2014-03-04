@@ -13,6 +13,9 @@
 (defn destroy []
   (println "picture-gallery is shutting down"))
 
+(defn user-page [_]
+  (session/get :user))
+
 (defroutes app-routes
   (route/resources "/")
   (route/not-found "Not Found"))
