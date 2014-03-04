@@ -11,8 +11,8 @@
             [ring.util.response :refer [file-response]]
             [picture-gallery.views.layout :as layout]
             [picture-gallery.models.db :as db]
-;            [picture-gallery.util :refer [galleries gallery-path]]
-            )
+            [picture-gallery.util
+             :refer [galleries gallery-path thumb-prefix thumb-url]])
   (:import [java.io File FileInputStream FileOutputStream]
            [java.awt.image AffineTransformOp BufferedImage]
            java.awt.RenderingHints
@@ -21,18 +21,15 @@
 
 (defn upload-page [info]
   (layout/common
-   [:h2 "Upload an image"]
-   [:p info]
-   (form-to {:enctype "multipart/form-data"}
-            [:post "/upload"]
-            (file-upload :file)
-            (submit-button "upload"))))
+     [:h2 "Upload an image"]
+     [:p info]
+     (form-to {:enctype "multipart/form-data"}
+              [:post "/upload"]
+              (file-upload :file)
+              (submit-button "upload"))))
 
-(defn gallery-path []
-  "galleries")
-
-(defn serve-file [file-name]
-  (file-response (str (gallery-path) File/separator file-name)))
+(defn serve-file [user-id file-name]
+  (file-response (str galleries File/separator user-id  File/separator file-name)))
 
 (def thumb-size 150)
 (def thumb-prefix "thumb_")
@@ -63,15 +60,17 @@
      "please select a file to upload"
      (try
        ;; save the file and create the thumbnail
-       (noir.io/upload-file (gallery-path) file :create-path? true)
+       (upload-file (gallery-path) file)
        (save-thumbnail file)
+       (db/add-image (session/get :user) filename)
        ;; display the thumbnail
        (image {:height "150px"}
-              (str "/img/" (url-encode filename)))
+              (thumb-url (session/get :user) filename))
        (catch Exception ex
          (str "error uploading file " (.getMessage ex)))))))
 
 (defroutes upload-routes
-  (GET "/upload" [info] (upload-page info))
-  (POST "/upload" [file] (handle-upload file))
-  (GET "/img/:file-name" [file-name] (serve-file file-name)))
+  (GET "/upload" [info] (restricted (upload-page info)))
+  (POST "/upload" [file] (restricted (handle-upload file)))
+  (GET "/img/:user-id/:file-name" [user-id file-name]
+       (serve-file user-id file-name)))
