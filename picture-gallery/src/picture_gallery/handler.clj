@@ -5,6 +5,7 @@
             [picture-gallery.routes.home :refer [home-routes]]
             [picture-gallery.routes.auth :refer [auth-routes]]
             [picture-gallery.routes.upload :refer [upload-routes]]
+            [picture-gallery.routes.gallery :refer [gallery-routes]]
             ))
 
 (defn init []
@@ -25,8 +26,10 @@
        [auth-routes
         home-routes
         upload-routes
+        gallery-routes
         app-routes
         :access-rules [user-page]])))
+
 
 
 
