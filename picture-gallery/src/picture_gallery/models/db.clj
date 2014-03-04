@@ -21,3 +21,16 @@
     (first res)))
 
 
+(defn add-image [userid name]
+  (with-db
+    sql/transaction
+    (if (sql/with-query-results res
+          ["select userid from images where userid = ? and name = ?" userid name]
+          (empty? res))
+      (sql/insert-record :images {:userid userid :name name})
+      (throw
+       (Exception. "you have already uploaded an image with the same name")))))
+
+
+
+
