@@ -2,6 +2,7 @@
   (:require [compojure.route :as route]
             [compojure.core :refer [defroutes]]
             [noir.util.middleware :as middelware]
+            [noir.session :as session]
             [picture-gallery.routes.home :refer [home-routes]]
             [picture-gallery.routes.auth :refer [auth-routes]]
             [picture-gallery.routes.upload :refer [upload-routes]]

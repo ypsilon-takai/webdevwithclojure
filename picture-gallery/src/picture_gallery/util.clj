@@ -14,7 +14,7 @@
   (str "/img/"
        userid
        "/"
-       (url-encode filename)))
+       (url-encode file-name)))
 
 (defn thumb-url [userid file-name]
   (image-url userid

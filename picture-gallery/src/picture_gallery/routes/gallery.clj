@@ -19,14 +19,14 @@
 
 (defn gallery-link [{:keys [userid name]}]
   [:div.thumbnail
-   [:a {:href (str "/gallery" userid)}
+   [:a {:href (str "/gallery/" userid)}
     (image (thumb-url userid name))
     userid "'s gallery"]])
 
 (defn show-galleries []
   (map gallery-link (db/get-gallery-previews)))
 
-(defroutes gallery-routes []
+(defroutes gallery-routes
   (GET "/gallery/:userid" [userid]
        (layout/common (display-gallery userid))))
 

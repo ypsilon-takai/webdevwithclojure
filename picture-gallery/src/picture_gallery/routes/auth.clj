@@ -4,7 +4,7 @@
             [picture-gallery.routes.home :refer :all]
             [picture-gallery.views.layout :as layout]
             [picture-gallery.models.db :as db]
-            [picture-gallery.util :refer [gallery-path]])
+            [picture-gallery.util :refer [gallery-path]]
             [noir.session :as session]
             [noir.response :as resp]
             [noir.validation :as vali]

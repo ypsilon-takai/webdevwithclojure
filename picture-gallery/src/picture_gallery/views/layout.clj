@@ -33,7 +33,9 @@
   (base
    (if-let [user (session/get :user)]
      (user-menu user)
-     (guest-menu)
-     content))
+     (guest-menu))
+   [:div.content content]))
+
+
 
   

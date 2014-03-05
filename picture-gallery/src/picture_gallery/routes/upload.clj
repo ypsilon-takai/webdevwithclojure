@@ -32,7 +32,6 @@
   (file-response (str galleries File/separator user-id  File/separator file-name)))
 
 (def thumb-size 150)
-(def thumb-prefix "thumb_")
 
 (defn scale [img ratio width height]
   (let [scale (AffineTransform/getScaleInstance (double ratio) (double ratio))
