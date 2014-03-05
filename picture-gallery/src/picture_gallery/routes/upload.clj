@@ -52,6 +52,21 @@
      "jpeg"
      (File. (str path thumb-prefix filename)))))
 
+(defn delete-image [userid name]
+  (try
+    (db/delete-image userid name)
+    (io/delete-file (str (gallery-path) File/separator name))
+    (io/delete-file (str (gallery-path) File/separator thumb-prefix name))
+    "ok"
+    (catch Exception ex (.getMessage ex))))
+
+(defn delete-images [names]
+  (let [userid (session/get :user)]
+    (resp/json
+     (for [name names]
+       {:name name :status (delete-image userid name)}))))
+
+
 
 (defn handle-upload [{:keys [filename] :as file}]
   (upload-page
@@ -72,4 +87,5 @@
   (GET "/upload" [info] (restricted (upload-page info)))
   (POST "/upload" [file] (restricted (handle-upload file)))
   (GET "/img/:user-id/:file-name" [user-id file-name]
-       (serve-file user-id file-name)))
+       (serve-file user-id file-name))
+  (POST "/delete" [names] (restricted (delete-images names))))

@@ -2,6 +2,7 @@
 /lib
 /classes
 /checkouts
+/picture-gallery/galleries
 pom.xml
 *.jar
 *.class
@@ -11,3 +12,4 @@ pom.xml
 .lein-env
 db.sq3
 .nrepl-port
+
