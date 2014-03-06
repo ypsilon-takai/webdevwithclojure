@@ -2,13 +2,15 @@
   (:require [hiccup.form :refer :all]
             [compojure.core :refer :all]
             [picture-gallery.routes.home :refer :all]
+            [picture-gallery.routes.upload :refer [delete-image]]
             [picture-gallery.views.layout :as layout]
             [picture-gallery.models.db :as db]
             [picture-gallery.util :refer [gallery-path]]
             [noir.session :as session]
             [noir.response :as resp]
             [noir.validation :as vali]
-            [noir.util.crypt :as crypt])
+            [noir.util.crypt :as crypt]
+            [noir.util.route :refer [restricted]])  
   (:import java.io.File))
 
 (defn valid? [id pass pass1]
@@ -81,6 +83,22 @@
   (session/clear!)
   (resp/redirect "/"))
 
+(defn delete-account-page []
+  (layout/common
+   (form-to [:post "/confirm-delete"]
+            (submit-button "delete account"))
+   (form-to [:get "/"]
+            (submit-button "cancel"))))
+
+(defn handle-confirm-delete []
+  (let [user (session/get :user)]
+    (doseq [{:keys [name]} (db/images-by-user)]
+      (delete-image user name))
+    (clojure.java.io/delete-file (gallery-path))
+    (db/delete-user user))
+  (session/clear!)
+  (resp/redirect "/"))
+
 (defroutes auth-routes
   (GET "/register" []
        (registration-page))
@@ -89,5 +107,9 @@
   (POST "/login" [id pass]
         (handle-login id pass))
   (GET "/logout" []
-       (handle-logout)))
+       (handle-logout))
+  (GET "/delete-account" []
+       (restricted (delete-account-page)))
+  (POST "/confirm-delete" []
+        (restricted (handle-confirm-delete))))
 
