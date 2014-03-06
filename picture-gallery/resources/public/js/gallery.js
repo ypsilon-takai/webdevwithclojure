@@ -7,8 +7,7 @@ function deleteImages() {
     var selectedInputs = $("input:checked");
     var selectedIds = [];
 
-    selectedInputs
-    .each(function() {
+    selectedInputs.each(function() {
         selectedIds.push($(this).attr('id'));
     });
 
@@ -24,9 +23,8 @@ function deleteImages() {
                            $(element).parent().parent().remove();
                        }
                        else
-                           errors
-                           .append ($('<li>',
-                                      {html: "failed to remove " +
+                           errors.append ($('<li>',
+                                            {html: "failed to remove " +
                                              this.name +
                                              ": " +
                                              this.status}));
