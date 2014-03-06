@@ -14,10 +14,10 @@ function deleteImages() {
 
     if (selectedIds.length < 1) alart("no images selected");
     else
-        $.post("/delete", 
+        $.post(context + "/delete", 
                {names: selectedIds},
                function(response) {
-                   var errors = $('<ul'>);
+                   var errors = $('<ul>');
                    $.each(response, function() {
                        if ("ok" === this.status) {
                            var element = document.getElementById(this.name);
@@ -25,7 +25,7 @@ function deleteImages() {
                        }
                        else
                            errors
-                           .append ($('<li',
+                           .append ($('<li>',
                                       {html: "failed to remove " +
                                              this.name +
                                              ": " +
