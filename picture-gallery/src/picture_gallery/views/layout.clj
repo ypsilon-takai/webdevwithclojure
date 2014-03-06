@@ -6,6 +6,9 @@
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]))
 
+(defn utf-8-response [html]
+  (content-type (response html) "text/html; charset=utf-8"))
+
 (deftype RenderablePage [content]
   Renderable
   (render [this request]
@@ -50,9 +53,4 @@
      (guest-menu))
    [:div.content content]))
   
-(defn utf-8-response [html]
-  (content-type (response html) "text/html; charset=utf-8"))
-
-
-
 

@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     $("#delete").click(deleteImages);
-}
+});
 
 function deleteImages() {
     var selectedInputs = $("input:checked");
