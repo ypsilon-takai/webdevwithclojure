@@ -13,3 +13,4 @@ pom.xml
 db.sq3
 .nrepl-port
 
+/picture-gallery/resources/public/js/gallery-cljs.js

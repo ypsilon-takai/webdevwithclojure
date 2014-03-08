@@ -37,7 +37,7 @@
 (defroutes gallery-routes
   (GET "/gallery/:userid" [userid]
        (layout/common
-        (include-js "/js/gallery.js")
+;;        (include-js "/js/gallery-cljs.js")
         (display-gallery userid))))
 
 

@@ -1,6 +1,6 @@
 (ns picture-gallery.views.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
-            [hiccup.element :refer [link-to]]
+            [hiccup.element :refer [link-to javascript-tag]]
             [hiccup.form :refer :all]
             [noir.session :as session]
             [ring.util.response :refer [content-type response]]
@@ -19,10 +19,11 @@
        (include-css "/css/screen.css")
        [:script {:type "text/javascript"}
         (str "var context=\"" (:context request) "\";")]
-       (include-js "//code.jquery.com/jquery-2.0.2.min.js"
-                   "/js/colors.js"
-                   "/js/site.js")]
-      [:body content]))))
+       (include-js "/js/colors.js"
+                   "/js/gallery-cljs.js")]
+      [:body
+       content
+       (javascript-tag "site.init(); gallery.init();")]))))
 
 (defn base [& content]
   (RenderablePage. content))
