@@ -19,11 +19,11 @@
        (include-css "/css/screen.css")
        [:script {:type "text/javascript"}
         (str "var context=\"" (:context request) "\";")]
-       (include-js "/js/colors.js"
-                   "/js/gallery-cljs.js")]
       [:body
        content
-       (javascript-tag "site.init(); gallery.init();")]))))
+       (include-js "/js/colors.js"
+                   "/js/gallery-cljs.js")]
+       (javascript-tag "site.init();")]))))
 
 (defn base [& content]
   (RenderablePage. content))
